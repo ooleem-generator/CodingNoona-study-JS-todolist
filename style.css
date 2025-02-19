@@ -45,3 +45,19 @@ body{
     text-decoration: line-through;
 }
 
+.check-button{
+    background-color: transparent;
+    border: none;
+    color:lightgreen;
+}
+
+.return-button{
+    background-color: transparent;
+    border: none;
+}
+
+.delete-button{
+    background-color: transparent;
+    border: none;
+    color:red;
+}
