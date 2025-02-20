@@ -10,10 +10,14 @@
 </head>
 <body>
     <section class="container">
-        <h1>To-do-list</h1>
+        <div class="title-area">
+            <h1 class="m-3">To-do-list</h1>
+        </div>
         <section class="input-area">
-            <input type="text" id="task-input">
-            <button id="add-button">+</button>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="task-input" placeholder="할 일을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button id="add-button" class="btn btn-outline-secondary" type="button" id="button-addon2">추가하기</button>
+            </div>
         </section>
         <section class="task-area">
             <div class="task-tabs">

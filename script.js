@@ -10,7 +10,7 @@ addNullCheck();
 
 addButton.addEventListener("click", addTask);
 
-taskInput.addEventListener("keydown", function(event){
+taskInput.addEventListener("keyup", function(event){
     if (event.key === "Enter" && taskInput.value !== ''){
         addTask();
     }
