@@ -1,18 +1,45 @@
 let taskInput = document.getElementById("task-input");
 let addButton = document.getElementById("add-button");
-let tabs = document.querySelectorAll(".task-tabs div")
+let tabs = document.querySelectorAll(".task-tabs div");
+let underLine = document.getElementById("under-line");
 let taskList = [];
 let mode = 'all';
 let filterList = [];
+
+addNullCheck();
+
 addButton.addEventListener("click", addTask);
-taskInput.addEventListener("focus", function(){
-    taskInput.value = '';
+
+taskInput.addEventListener("keydown", function(event){
+    if (event.key === "Enter" && taskInput.value !== ''){
+        addTask();
+    }
 })
 
+taskInput.addEventListener("keyup", addNullCheck)
 
-for (i=1;i<tabs.length;i++){
-    tabs[i].addEventListener("click", function(event) {
-        filter(event)})
+tabs.forEach((menu) =>
+    menu.addEventListener("click", (event) => underLineMove(event))
+);
+
+tabs.forEach((menu) =>
+    menu.addEventListener("click", (event) => filter(event))
+);
+
+
+function addNullCheck() {
+    if (taskInput.value){
+        addButton.disabled = false;
+    } else {
+        addButton.disabled = true;
+    }
+}
+
+function underLineMove(event){
+    underLine.style.left = event.target.offsetLeft + "px";
+    underLine.style.width = event.target.offsetWidth + "px";
+    underLine.style.top = 
+        event.target.offsetTop + event.target.offsetHeight + "px";
 }
 
 function addTask() {
@@ -23,6 +50,7 @@ function addTask() {
     }
 
     taskList.push(task);
+    taskInput.value = ''
     render()
 }
 
@@ -70,6 +98,13 @@ function toggleComplete(id) {
             break;
         }
     }
+
+    if (mode === "ongoing") {
+        filterList = taskList.filter(task => !task.isComplete);
+    } else if (mode === "done") {
+        filterList = taskList.filter(task => task.isComplete);
+    }
+
     render();
 }
 
@@ -77,10 +112,17 @@ function deleteTask(id) {
     for (let i=0;i<taskList.length;i++){
 
         if(taskList[i].id == id){
-            taskList.splice(i,1);
+            taskList = taskList.filter(task => task.id !== id); // taskList.splice(i,1); 에서 변경
             break;
         }
     }
+
+    if (mode === "ongoing") {
+        filterList = taskList.filter(task => !task.isComplete);
+    } else if (mode === "done") {
+        filterList = taskList.filter(task => task.isComplete);
+    }
+
     render();
 }
 
